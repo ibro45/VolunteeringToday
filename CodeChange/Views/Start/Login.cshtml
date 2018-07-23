@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<section id="login">
+    <div class="loginBox">
+        <h3>Login</h3>
+        <p>Select your favorite social network to login, if you don't have account you will need to grant premissions for volunteering.today!</p>
+        <ul>
+            <li onclick="TwitterLogin();">
+                <img src="~/Content/twitter.png" /> Twitter
+            </li>
+        </ul>
+    </div>
+</section>
+
+<form action="" id="socialForm" method="POST">
+    <input type="hidden" id="token" name="token" />
+    <input type="hidden" id="username" name="username" />
+</form>
+
+
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+            // Initialize Firebase
+            // TODO: Replace with your project's customized code snippet
+            var config = {
+                apiKey: "AIzaSyBkGaZF1oIvUmldy_zdYrK9avVGQPmKAts",
+                authDomain: "changecode-37e0e.firebaseapp.com"
+            };
+            firebase.initializeApp(config);
+</script>
+<script>
+            function TwitterLogin() {
+                var provider = new firebase.auth.TwitterAuthProvider();
+                console.log(provider);
+
+                firebase.auth().signInWithPopup(provider).then(function (result) {
+                    var username = result.additionalUserInfo.username;
+                    var token = result.credential.accessToken;
+
+                    $("#token").val(token); $("#username").val(username); $("#socialForm").submit();
+
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+</script>
+

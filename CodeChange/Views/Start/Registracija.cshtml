@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Registracija";
+}
+
+
+<section id="login">
+    <div class="loginBox">
+        <h3>Registration</h3>
+        <p>Please upload image of your face!</p>
+        <ul>
+            <li onclick="Register();">
+                <img src="~/Content/photos.png" /> Upload image
+            </li><br class="clearfix"/>            
+        </ul>
+    </div>
+</section>
+
+<form action="~/Start/Registracija" id="socialForm" method="post" enctype="multipart/form-data">
+    <input type="file" style="display:none;" onchange="Save()" id="fileSelect" name="file" />
+    <input type="hidden" value="@ViewBag.ID" name="id" />
+</form>
+
+
+<script>
+            function Register() {
+                $("#fileSelect").click();
+             }
+
+            function Save() {
+                console.log("a");
+                $("#socialForm").submit();
+            }
+</script>
+

@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ChangeCodeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="DateBegin" Type="datetime" />
+          <Property Name="DateEnd" Type="datetime" />
+          <Property Name="Description" Type="text" />
+          <Property Name="ActionURL" Type="text" />
+          <Property Name="ActionUser" Type="nvarchar" MaxLength="255" />
+          <Property Name="ActionUserID" Type="nvarchar" MaxLength="64" />
+          <Property Name="Location" Type="nvarchar" MaxLength="32" />
+          <Property Name="UserURL" Type="text" />
+          <Property Name="ActionImage" Type="text" />
+        </EntityType>
+        <EntityType Name="ActionStats">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IDAction" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReplyCount" Type="int" Nullable="false" />
+          <Property Name="RetweetCount" Type="int" Nullable="false" />
+          <Property Name="FavoriteCount" Type="int" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IDUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IDAction" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Dosao" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="UserKey" Type="nvarchar" MaxLength="512" />
+          <Property Name="Token" Type="text" />
+        </EntityType>
+        <Association Name="FK__ActionSta__IDAct__6FE99F9F">
+          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
+          <End Role="ActionStats" Type="Self.ActionStats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionStats">
+              <PropertyRef Name="IDAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserActio__IDAct__778AC167">
+          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
+          <End Role="UserAction" Type="Self.UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserAction">
+              <PropertyRef Name="IDAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserActio__IDUse__76969D2E">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserAction" Type="Self.UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserAction">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChangeCodeModelStoreContainer">
+          <EntitySet Name="Actions" EntityType="Self.Actions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionStats" EntityType="Self.ActionStats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAction" EntityType="Self.UserAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ActionSta__IDAct__6FE99F9F" Association="Self.FK__ActionSta__IDAct__6FE99F9F">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="ActionStats" EntitySet="ActionStats" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserActio__IDAct__778AC167" Association="Self.FK__UserActio__IDAct__778AC167">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="UserAction" EntitySet="UserAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserActio__IDUse__76969D2E" Association="Self.FK__UserActio__IDUse__76969D2E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserAction" EntitySet="UserAction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChangeCodeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ChangeCodeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="ChangeCodeModel.Users" />
+          <EntitySet Name="Actions" EntityType="ChangeCodeModel.Actions" />
+          <EntitySet Name="ActionStats" EntityType="ChangeCodeModel.ActionStats" />
+          <AssociationSet Name="FK__ActionSta__IDAct__6FE99F9F" Association="ChangeCodeModel.FK__ActionSta__IDAct__6FE99F9F">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="ActionStats" EntitySet="ActionStats" />
+          </AssociationSet>
+          <EntitySet Name="UserAction" EntityType="ChangeCodeModel.UserAction" />
+          <AssociationSet Name="FK__UserActio__IDAct__778AC167" Association="ChangeCodeModel.FK__UserActio__IDAct__778AC167">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="UserAction" EntitySet="UserAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserActio__IDUse__76969D2E" Association="ChangeCodeModel.FK__UserActio__IDUse__76969D2E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserAction" EntitySet="UserAction" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="UserKey" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserAction" Relationship="ChangeCodeModel.FK__UserActio__IDUse__76969D2E" FromRole="Users" ToRole="UserAction" />
+        </EntityType>
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ActionName" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="DateBegin" Type="DateTime" Precision="3" />
+          <Property Name="DateEnd" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActionURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActionUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ActionUserID" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="UserURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActionImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ActionStats" Relationship="ChangeCodeModel.FK__ActionSta__IDAct__6FE99F9F" FromRole="Actions" ToRole="ActionStats" />
+          <NavigationProperty Name="UserAction" Relationship="ChangeCodeModel.FK__UserActio__IDAct__778AC167" FromRole="Actions" ToRole="UserAction" />
+        </EntityType>
+        <EntityType Name="ActionStats">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="IDAction" Type="Guid" Nullable="false" />
+          <Property Name="ReplyCount" Type="Int32" Nullable="false" />
+          <Property Name="RetweetCount" Type="Int32" Nullable="false" />
+          <Property Name="FavoriteCount" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Actions" Relationship="ChangeCodeModel.FK__ActionSta__IDAct__6FE99F9F" FromRole="ActionStats" ToRole="Actions" />
+        </EntityType>
+        <Association Name="FK__ActionSta__IDAct__6FE99F9F">
+          <End Type="ChangeCodeModel.Actions" Role="Actions" Multiplicity="1" />
+          <End Type="ChangeCodeModel.ActionStats" Role="ActionStats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ActionStats">
+              <PropertyRef Name="IDAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserAction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="IDUser" Type="Guid" Nullable="false" />
+          <Property Name="IDAction" Type="Guid" Nullable="false" />
+          <Property Name="Dosao" Type="Boolean" />
+          <NavigationProperty Name="Actions" Relationship="ChangeCodeModel.FK__UserActio__IDAct__778AC167" FromRole="UserAction" ToRole="Actions" />
+          <NavigationProperty Name="Users" Relationship="ChangeCodeModel.FK__UserActio__IDUse__76969D2E" FromRole="UserAction" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__UserActio__IDAct__778AC167">
+          <End Type="ChangeCodeModel.Actions" Role="Actions" Multiplicity="1" />
+          <End Type="ChangeCodeModel.UserAction" Role="UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserAction">
+              <PropertyRef Name="IDAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserActio__IDUse__76969D2E">
+          <End Type="ChangeCodeModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ChangeCodeModel.UserAction" Role="UserAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserAction">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChangeCodeModelStoreContainer" CdmEntityContainer="ChangeCodeEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ChangeCodeModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="UserKey" ColumnName="UserKey" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Actions">
+            <EntityTypeMapping TypeName="ChangeCodeModel.Actions">
+              <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="ActionImage" ColumnName="ActionImage" />
+                <ScalarProperty Name="UserURL" ColumnName="UserURL" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ActionUserID" ColumnName="ActionUserID" />
+                <ScalarProperty Name="ActionUser" ColumnName="ActionUser" />
+                <ScalarProperty Name="ActionURL" ColumnName="ActionURL" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="DateBegin" ColumnName="DateBegin" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionStats">
+            <EntityTypeMapping TypeName="ChangeCodeModel.ActionStats">
+              <MappingFragment StoreEntitySet="ActionStats">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="FavoriteCount" ColumnName="FavoriteCount" />
+                <ScalarProperty Name="RetweetCount" ColumnName="RetweetCount" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IDAction" ColumnName="IDAction" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAction">
+            <EntityTypeMapping TypeName="ChangeCodeModel.UserAction">
+              <MappingFragment StoreEntitySet="UserAction">
+                <ScalarProperty Name="Dosao" ColumnName="Dosao" />
+                <ScalarProperty Name="IDAction" ColumnName="IDAction" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

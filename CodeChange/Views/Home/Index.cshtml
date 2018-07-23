@@ -1,0 +1,43 @@
+﻿@using CodeChange.Models;
+@{
+    ViewBag.Title = "Glavna";
+    List<Actions> akcije = (List<Actions>)ViewData["Akcije"];
+}
+
+<section id="items">
+        @{
+            int i = 0;
+        }
+        @foreach (Actions l in akcije)
+        {
+            if (i == 0)
+            {
+                @:<div class="item left" >
+            }
+            else
+            {
+                @:<div class="item">        
+            }
+            <div class="itemImg">
+                <img src="@l.ActionImage" />
+            </div>
+            <div class="itemBackground"></div>
+            <a href="~/Actions/@l.ID">
+                <div class="itemFollow">
+                    Više informacija!
+            </div></a>
+            <h3>@l.ActionName</h3>
+            <p>@l.DateBegin.Value.ToString("dd.MM.yyyy"), @l.Location</p>
+            i = i + 1;
+            @:</div>
+            if(i == 4)
+            {
+                @:</div>
+                i = 0;
+            }
+        }
+
+
+        
+
+</section>

@@ -1,0 +1,57 @@
+﻿@using CodeChange.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Volunteering.today</title> 
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <section id="navigation">
+        <div id="logo">
+            <a href="http://volunteering.today"><img src="~/Content/Logo.gif" /></a>
+        </div>
+        <div id="userInfo">
+            @if (ViewData["TrenutniKorisnik"] != null)
+            {
+            Users tKorisnik = (Users)ViewData["TrenutniKorisnik"]; 
+               
+            <div class="image"><img src="~/Content/User.gif" /></div>
+            <div class="text">@tKorisnik.Email</div>
+                }
+                else
+                {
+                    <div class="image"><img src="~/Content/User.gif" /></div>
+                    <div class="text"><a href="~/Login">Login</a></div>
+                }
+        </div>
+        <nav>
+            <ul>
+                <li class="first">
+                    <a href="~/Home/Index">Start volunteering</a>
+                </li>
+                <li>
+                    <a href="~/Login">Login</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">See trending</a>
+                </li>
+            </ul>
+        </nav><br class="clearfix" />
+    </section><br class="clearfix"/>
+
+
+        @RenderBody()
+    
+    <section id="footer">
+       
+    </section>
+
+   
+</body>
+</html>

@@ -1,0 +1,113 @@
+﻿@using CodeChange.Models;
+@{
+    ViewBag.Title = "Actions";
+    Actions action = (Actions)ViewData["Akcija"];
+    ActionStats stat = (ActionStats)ViewData["Stat"];
+    List<Users> dosliKorisnici = null;
+    if (ViewData["DosliKorisnici"] != null)
+    {
+        dosliKorisnici  = (List<Users>)ViewData["DosliKorisnici"];
+    }
+}
+
+<section id="details">
+    <div class="container">
+        <div class="left">
+            <div class="detailsImg">
+                <img src="@action.ActionImage" />
+            </div>
+            <div class="stats">
+                <table>
+                    <tr>
+                        <td><img src="../Content/retweet.png" /></td>
+                        <td class="label">Ova akcija je podijeljena <b>@stat.RetweetCount</b> puta.</td>
+                    </tr>
+                    <tr>
+                        <td><img src="../Content/like.png" /></td>
+                        <td class="label"><b>@stat.FavoriteCount</b> ljudi je reklo da im se ova akcija sviđa.</td>
+                    </tr>
+                    <tr>
+                        <td><img src="../Content/comments.png" /></td>
+                        <td class="label">Akcija je komentirana <b>@stat.ReplyCount</b> puta.</td>
+                    </tr>
+                </table>
+            </div>
+            <hr />
+            <h3>
+                Volonteri:
+            </h3>
+            <ul>
+                @foreach(Users u in dosliKorisnici)
+                {
+                    <li>@u.Email</li>
+                }
+            </ul>
+        </div>
+        <div class="right">
+        <h2>@action.ActionName</h2>
+        <p>
+            @action.Description
+        </p>
+         @if (ViewBag.Korisnik == null)
+         {
+            <button onclick="PridruziSe()">Pridruži se ovoj akciji</button>
+            <script>
+                function PridruziSe() {
+                    $("#formP").submit();
+                }
+            </script>
+         }
+         else
+         {
+            <button disabled="disabled">Pridruži se ovoj akciji</button>
+         }
+            <p />
+            @if (ViewBag.UserAdmin != null)
+            {
+            <script>
+                function DodajSliku() {
+                    $("#getFile").click();
+                }
+                function Upload() {
+                    $("#submitForm").submit();
+                }
+            </script>
+                <form action="~/Start/DodajSliku" id="submitForm" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="@action.ID" />
+                    <input type="file" style="display:none;" onchange="Upload()" id="getFile" name="file"/>
+                </form>
+                <button onclick="DodajSliku()">Dodaj Sliku</button>
+               
+            }
+          <div id="twitterCont">
+
+          </div>
+            @{
+                string actionID = action.ActionURL.Split('/').LastOrDefault();
+            }
+            <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script>
+                twttr.ready(function () {
+                    console.log(1);
+                    twttr.widgets.createTweet(
+                        '@actionID',
+                        document.getElementById("twitterCont"),
+                        {
+                            width:'550'               
+                        }
+                    );
+                    console.log(1);
+                });
+               
+            </script>
+
+
+        </div>
+   
+        <form action="~/Start/Detalji" id="formP" method="post">
+            <input type="hidden" name="userid" value="@Html.Raw(ViewBag.KorisnikID)" />
+            <input type="hidden" name="actionid" value="@Html.Raw(ViewBag.ActionID)" />
+        </form>
+    </div>
+</section>
+
