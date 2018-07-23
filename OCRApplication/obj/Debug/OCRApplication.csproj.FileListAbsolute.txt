@@ -1,0 +1,10 @@
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\obj\Debug\OCRApplication.csprojResolveAssemblyReference.cache
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\obj\Debug\OCRApplication.csproj.CoreCompileInputs.cache
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\bin\Debug\OCRApplication.exe.config
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\bin\Debug\OCRApplication.exe
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\bin\Debug\OCRApplication.pdb
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\obj\Debug\OCRApplication.exe
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\obj\Debug\OCRApplication.pdb
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\bin\Debug\Newtonsoft.Json.dll
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\bin\Debug\Newtonsoft.Json.xml
+C:\Users\bro\Desktop\OCRApplication\OCRApplication\OCRApplication\obj\Debug\OCRApplication.csproj.CopyComplete
