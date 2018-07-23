@@ -1,6 +1,6 @@
 # List of branches
 
-**Note** that the code is separated into branches;
+**Note** that the code is separated into branches
 
 | **Name of the app (link to the branch)** | *Description*          |
 | ------------- |-------------|
@@ -13,7 +13,7 @@
 
 # Description of the project
 
-- The idea of the project is to automise the collecting and categorising of all volunteering events shared on social networks. As a proof-of-concept, the application connects to Twitter using [**TwitterAnalytics**](https://github.com/ibro45/VolunteeringToday/tree/TwitterScripts/), and looking for relevant hashtags (PoC example: ***`"#VolunteeringTodayKingICT"`***).
+- The idea of the project is to automise the collecting and categorising of all volunteering events shared on social networks. As a proof-of-concept, the application connects to Twitter using [**TwitterAnalytics**](https://github.com/ibro45/VolunteeringToday/tree/TwitterScripts/), and looking for relevant hashtags (PoC example: `"#VolunteeringTodayKingICT"`).
 
 - After connecting to Twitter, [**TwitterScraper**](https://github.com/ibro45/VolunteeringToday/tree/TwitterScripts/TwitterScraper.py) is ran which fetches all the tweets with the given hashtags and downloads their images.
 
@@ -43,10 +43,8 @@
     - Test photo of the event: ["The sole volunteer Dwayne the Rock Johnson"](https://ia.media-imdb.com/images/M/MV5BMTkyNDQ3NzAxM15BMl5BanBnXkFtZTgwODIwMTQ0NTE@._V1_UX214_CR0,0,214,317_AL_.jpg)
 6. **Check the list of attendees**
     - There's you or Dwayne the Rock Johnson
-7. **Check the profile** [**VolunteerTheBot**](https://twitter.com/volunteerthebot) to see that a notifications has been sent to the user that his image was used (available without registration as well)
+7. **Check the profile** [**VolunteerTheBot**](https://twitter.com/volunteerthebot) to see that a notification has been sent to the user that his image was used (available without registration as well)
 
 ## Thank you for your time
 
 ![Our lord and saviour in difficult debugging times, the rubber duck](https://media1.giphy.com/media/u6abG1EmZciv6/200.gif)
-
-
